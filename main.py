@@ -57,7 +57,7 @@ async def check_olx():
     
     try:
         for url in TARGET_URLS:
-            logging.info(f"Чекаем: {url[:40]}")
+            logging.info(f"Чекаем: {url[:400]}")
             driver.get(url)
             await asyncio.sleep(5)
             
