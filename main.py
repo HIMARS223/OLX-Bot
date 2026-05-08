@@ -7,7 +7,22 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
+import threading
+from http.server import CMD, BaseHTTPRequestHandler, HTTPServer
 
+class HealthCheckHandler(BaseHTTPRequestHandler):
+    def do_GET(self):
+        self.send_response(200)
+        self.end_headers()
+        self.wfile.write(b"I am alive")
+    def log_message(self, format, *args): return # Чтобы не спамить в логи
+
+def run_health_server():
+    server = HTTPServer(('0.0.0.0', 10000), HealthCheckHandler)
+    server.serve_forever()
+
+# Запускаем в отдельном потоке
+threading.Thread(target=run_health_server, daemon=True).start()
 API_TOKEN = os.getenv('BOT_TOKEN')
 USER_ID = os.getenv('USER_ID')
 
