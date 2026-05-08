@@ -77,7 +77,7 @@ async def check_olx():
             await asyncio.sleep(5)
             
             # Ищем ссылки
-            elements = driver.find_elements(By.CSS_SELECTOR, 'a[href*="/d/uk/obyavlenie/"]')[:3]
+            elements = driver.find_elements(By.CSS_SELECTOR, 'a[href*="/d/uk/obyavlenie/"]')[:8]
             links = [el.get_attribute('href').split('?')[0] for el in elements]
             
             for link in links:
