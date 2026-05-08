@@ -77,7 +77,7 @@ async def check_olx():
             await asyncio.sleep(5)
             
             # Ищем ссылки
-            elements = driver.find_elements(By.CSS_SELECTOR, 'a[href*="/d/uk/obyavlenie/"]')[:20]
+            elements = driver.find_elements(By.CSS_SELECTOR, 'a[href*="/d/uk/obyavlenie/"]')[:10]
             links = [el.get_attribute('href').split('?')[0] for el in elements]
             
             for link in links:
@@ -110,7 +110,7 @@ async def check_olx():
 async def main():
     while True:
         await check_olx()
-        await asyncio.sleep(800) # Раз в 10 минут (чтобы не частить)
+        await asyncio.sleep(600) # Раз в 10 минут (чтобы не частить)
 
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO)
